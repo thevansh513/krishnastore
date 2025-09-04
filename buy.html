@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products - Digital Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+    .header {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-link {
+      color: #64748b;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .nav-link:hover { color: #667eea; }
+    .nav-link.active { color: #667eea; font-weight: 600; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .product-content { padding: 20px; }
+    .product-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; }
+    .product-description { font-size: 0.9rem; color: #64748b; margin-bottom: 15px; }
+    .product-price { font-size: 1.8rem; font-weight: 700; color: #667eea; margin-bottom: 15px; }
+    .btn-buy {
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn-buy:hover { transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">DigitalStore</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="buy.html" class="nav-link active">Products</a>
+        <a href="#" class="nav-link">Support</a>
+        <a href="#" class="nav-link">About</a>
+      </div>
+    </div>
+
+    <h1 style="color:white;text-align:center;font-size:2.5rem;font-weight:700;margin-bottom:30px;">
+      Premium Digital Products
+    </h1>
+
+    <div class="products-grid">
+      <!-- CapCut -->
+      <div class="product-card">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3c0bd923-0c93-4128-b132-2142b52a319f.png" alt="CapCut" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">CapCut Pro Package</h3>
+          <p class="product-description">Premium CapCut templates, transitions, and effects.</p>
+          <div class="product-price">₹63</div>
+          <a href="cap" class="btn-buy">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- VPN -->
+      <div class="product-card">
+        <img src="uploads/2665268.png" alt="VPN" class="product-image">
+        <div class="product-content">
+          <h3 class="product-title">VPN Premium</h3>
+          <p class="product-description">Secure & fast VPN service with premium servers.</p>
+          <div class="product-price">₹19</div>
+          <a href="Vpn" class="btn-buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>>>
+</html>></html>>>></html>>>>

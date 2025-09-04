@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "public",
+    "rewrites": [
+      { "source": "/", "destination": "/index.html" },
+      { "source": "/buy", "destination": "/buy.html" },
+      { "source": "/pay", "destination": "/cap/pay.html" },
+      { "source": "/download", "destination": "/cap/download.html" },
+      { "source": "/vpn", "destination": "/vpn/index.html" },
+      { "source": "/vpn/download", "destination": "/vpn/download.html" }
+    ]
+  }
+}
