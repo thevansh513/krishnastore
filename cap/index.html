@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment - Digital Store</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height:100vh; padding:20px; display:flex; align-items:center; justify-content:center; }
+.payment-container { background:white; border-radius:20px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); max-width:800px; width:100%; overflow:hidden; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding:30px; color:white; text-align:center; }
+.logo { font-size:2rem; font-weight:700; margin-bottom:10px; }
+.page-title { font-size:1.5rem; font-weight:600; margin-bottom:5px; }
+.page-subtitle { opacity:0.9; font-size:1rem; }
+.content { padding:40px; transition: all 0.5s ease; }
+.back-btn { background:#f1f5f9; color:#64748b; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:500; transition:all 0.3s ease; text-decoration:none; display:inline-flex; align-items:center; gap:8px; margin-bottom:30px; }
+.back-btn:hover { background:#e2e8f0; }
+.order-summary { background:#f8fafc; border-radius:15px; padding:25px; margin-bottom:30px; transition: all 0.5s ease; }
+.summary-title { font-size:1.3rem; font-weight:600; color:#1f2937; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+.summary-item { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #e2e8f0; }
+.summary-item:last-child { border-bottom:none; }
+.item-label { color:#64748b; font-weight:500; }
+.item-value { color:#1f2937; font-weight:600; }
+.total { display:flex; justify-content:space-between; align-items:center; padding:20px 0 0; margin-top:15px; border-top:2px solid #e2e8f0; }
+.total-label { font-size:1.2rem; font-weight:700; color:#1f2937; }
+.total-value { font-size:1.5rem; font-weight:700; color:#667eea; }
+.payment-methods { margin-bottom:30px; transition: all 0.5s ease; }
+.methods-title { font-size:1.2rem; font-weight:600; color:#1f2937; margin-bottom:20px; }
+.method-cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:15px; margin-bottom:20px; }
+.method-card { background:#f8fafc; border:2px solid #e2e8f0; border-radius:10px; padding:15px; text-align:center; cursor:pointer; transition:all 0.3s ease; }
+.method-card:hover { border-color:#667eea; transform:translateY(-2px); }
+.method-card.active { border-color:#667eea; background:rgba(102,126,234,0.1); }
+.method-icon { font-size:2rem; margin-bottom:10px; color:#64748b; }
+.method-name { font-weight:600; color:#1f2937; font-size:0.9rem; }
+.razorpay-logo { width:120px; height:40px; object-fit:contain; margin:10px 0; }
+.btn-pay { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:16px 40px; border:none; border-radius:12px; font-size:1.1rem; font-weight:600; cursor:pointer; transition:all 0.3s ease; width:100%; text-align:center; display:block; }
+.btn-pay:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 10px 25px rgba(102,126,234,0.3); }
+.btn-pay:disabled { opacity:0.7; cursor:not-allowed; }
+.loading { display:inline-block; width:20px; height:20px; border:3px solid #f3f3f3; border-top:3px solid #667eea; border-radius:50%; animation:spin 1s linear infinite; margin-right:10px; }
+@keyframes spin { 0%{transform:rotate(0deg);}100%{transform:rotate(360deg);} }
+.secure-note { text-align:center; color:#64748b; font-size:0.9rem; margin-top:20px; display:flex; align-items:center; justify-content:center; gap:8px; }
+.error-message { background:#fee2e2; color:#dc2626; padding:15px; border-radius:10px; margin-bottom:20px; display:none; text-align:center; }
+#iframe-container { margin-top:20px; transition: all 0.5s ease; }
+@media (max-width:768px){ .content{padding:25px;} .method-cards{grid-template-columns:1fr 1fr;} .header{padding:20px;} }
+</style>
+</head>
+<body>
+<div class="payment-container">
+    <div class="header">
+        <div class="logo">DigitalStore</div>
+        <h2 class="page-title">Secure Payment</h2>
+        <p class="page-subtitle">Complete your purchase securely</p>
+    </div>
+
+    <div class="content">
+        <a href="buy.html" class="back-btn">← Back to Products</a>
+
+        <div id="error-message" class="error-message">Payment failed. Please try again.</div>
+
+        <div class="order-summary">
+            <h3 class="summary-title"><span>📦</span> Order Summary</h3>
+            <div class="summary-item"><span class="item-label">Product:</span><span class="item-value" id="product-name">CapCut Pro Package</span></div>
+            <div class="summary-item"><span class="item-label">Price:</span><span class="item-value" id="product-price">₹63</span></div>
+            <div class="summary-item"><span class="item-label">Discount:</span><span class="item-value" id="discount">₹2</span></div>
+            <div class="total"><span class="total-label">Total Amount:</span><span class="total-value" id="total-amount">₹61</span></div>
+        </div>
+
+        <div class="payment-methods" id="payment-methods">
+            <h3 class="methods-title">Payment Method</h3>
+            <div class="method-cards">
+                <div class="method-card active" data-method="razorpay"><div class="method-icon">💳</div><div class="method-name">Credit/Debit Card</div></div>
+                <div class="method-card" data-method="razorpay"><div class="method-icon">📱</div><div class="method-name">UPI</div></div>
+                <div class="method-card" data-method="razorpay"><div class="method-icon">🏦</div><div class="method-name">Net Banking</div></div>
+                <div class="method-card" data-method="razorpay"><div class="method-icon">📲</div><div class="method-name">Wallet</div></div>
+            </div>
+            <div style="text-align:center; margin:20px 0;">
+                <img src="https://razorpay.com/assets/razorpay-glyph.svg" alt="Razorpay Secure Payment Gateway" class="razorpay-logo" />
+                <p style="color:#64748b; font-size:0.9rem; margin-top:5px;">Secure payment processing</p>
+            </div>
+        </div>
+
+        <button id="pay-button" class="btn-pay">Pay Now - ₹61</button>
+        <div id="iframe-container"></div>
+        <div class="secure-note"><span>🔒</span> Your payment information is encrypted and secure</div>
+    </div>
+</div>
+
+<script>
+const price = 49;
+const payButton = document.getElementById('pay-button');
+const iframeContainer = document.getElementById('iframe-container');
+const paymentMethods = document.getElementById('payment-methods');
+
+payButton.addEventListener('click', () => {
+    // Hide button and payment methods with animation
+    payButton.style.display = 'none';
+    paymentMethods.style.transition = 'all 0.5s ease';
+    paymentMethods.style.opacity = '0';
+    setTimeout(() => { paymentMethods.style.display = 'none'; }, 500);
+
+    // Create iframe
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://rzp.io/rzp/cqDZoBZ';
+    iframe.style.width = '100%';
+    iframe.style.height = '650px';
+    iframe.style.border = 'none';
+    iframe.style.borderRadius = '12px';
+    iframeContainer.appendChild(iframe);
+    iframe.scrollIntoView({ behavior: 'smooth' });
+});
+</script>
+</body>
+</html>
